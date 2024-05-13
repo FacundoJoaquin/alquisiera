@@ -21,3 +21,21 @@
 .custom-shape-divider-bottom-1715119573 .shape-fill {
     fill: #FFFFFF;
 }
+
+
+/* styles.css */
+
+.title-with-lines {
+    display: flex;
+    align-items: center;
+}
+
+.title-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #B6D3FE;
+}
+
+.title-text {
+    margin: 0 10px;
+}

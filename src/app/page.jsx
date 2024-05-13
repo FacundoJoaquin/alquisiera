@@ -9,6 +9,7 @@ import Image from 'next/image'
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Alquileres from "./components/Alquileres";
+import Separation from "./ui/Separation";
 
 
 export default function Home() {
@@ -42,11 +43,14 @@ export default function Home() {
     }, []);
    */
   return (
-    <section className="h-screen flex flex-col px-16">
-      <Navbar />
-      <Hero />
+    <main className="flex flex-col px-16">
+      <div className="h-dvh flex flex-col">
+        <Navbar />
+        <Hero />
+      </div>
+      <Separation />
       <Alquileres />
-    </section>
+    </main>
   );
 
 }

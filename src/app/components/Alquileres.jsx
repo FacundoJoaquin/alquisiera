@@ -2,9 +2,11 @@ import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { db } from '../firebase/config';
 import Card from '../ui/Card';
+import { motion, useScroll } from "framer-motion"
 
 const Alquileres = () => {
     const [data, setData] = useState(null);
+    const { scrollYProgress } = useScroll();
 
     useEffect(() => {
       const fetch = async () => {
@@ -24,13 +26,13 @@ const Alquileres = () => {
       }, [data])
 
   return (
-    <div className='mt-36 grid grid-cols-4 gap-20'>
+    <section className='mt-20 grid grid-cols-4 gap-20 mb-10'>
       {data && data.map((e,i) => {
         return (
           <Card key={i} data={e}/>
         )
       })}
-    </div>
+    </section>
   )
 }
 
