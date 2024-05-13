@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, getDocs, serverTimestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase/config";
 
@@ -12,23 +12,24 @@ const useChronoFetching = () => {
   const [fetchedTonightZZ, setFetchedTonightZZ] = useState(false);
 
   const [data, setData] = useState([]);
- 
+
 
   useEffect(() => {
     const interval = setInterval(async () => {
       const now = new Date();
       const hour = now.getHours();
 
-      await executeDataFetch(14, 15, "armando", fetchedTonightArmando, setFetchedTonightArmando);
-      await executeDataFetch(14, 15, "arnoldi", fetchedTonightArnoldi, setFetchedTonightArnoldi);
-      await executeDataFetch(14, 15, "bounos", fetchedTonightBounos, setFetchedTonightBounos);
-      await executeDataFetch(14, 15, "mallemacci", fetchedTonightMallemacci, setFetchedTonightMallemacci);
-      await executeDataFetch(14, 15, "salcovsky", fetchedTonightSalcovsky, setFetchedTonightSalcovsky);
-      await executeDataFetch(14, 15, "surwal", fetchedTonightSurwal, setFetchedTonightSurwal);
-      await executeDataFetch(14, 15, "zz", fetchedTonightZZ, setFetchedTonightZZ);
+      console.log('La hora es: ', hour)
+      await executeDataFetch(9, 10, "armando", fetchedTonightArmando, setFetchedTonightArmando);
+      await executeDataFetch(9, 10, "arnoldi", fetchedTonightArnoldi, setFetchedTonightArnoldi);
+      await executeDataFetch(9, 10, "bounos", fetchedTonightBounos, setFetchedTonightBounos);
+      await executeDataFetch(9, 10, "mallemacci", fetchedTonightMallemacci, setFetchedTonightMallemacci);
+      await executeDataFetch(9, 10, "salcovsky", fetchedTonightSalcovsky, setFetchedTonightSalcovsky);
+      await executeDataFetch(9, 10, "surwal", fetchedTonightSurwal, setFetchedTonightSurwal);
+      await executeDataFetch(9, 10, "zz", fetchedTonightZZ, setFetchedTonightZZ);
 
 
-      if (hour === 6) {
+      if (hour === 8) {
         setFetchedTonightArmando(false)
         setFetchedTonightArnoldi(false)
         setFetchedTonightBounos(false)
@@ -63,16 +64,16 @@ const useChronoFetching = () => {
 
 
   const writeFirebase = async (data) => {
-    const createdAt = serverTimestamp(); 
-    const promises = data.map(async (item) => { 
+    const createdAt = serverTimestamp();
+    const promises = data.map(async (item) => {
       return addDoc(collection(db, "alquileres"), {
-        ...item, 
+        ...item,
         timeStamp: createdAt
       });
     });
 
     try {
-      await Promise.all(promises); 
+      await Promise.all(promises);
       console.log("Todos los documentos se han agregado correctamente");
     } catch (error) {
       console.error("Error al agregar documentos:", error);
@@ -88,12 +89,24 @@ const useChronoFetching = () => {
       const data = await fetchData(endpoint);
       if (data) {
         await writeFirebase(data);
-        setFetched(true); 
+        setFetched(true);
       }
     }
   };
 
-  return null; 
+  const clearFirebaseCollection = async () => {
+    const collectionRef = collection(db, "alquileres");
+    const querySnapshot = await getDocs(collectionRef);
+
+    querySnapshot.forEach(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+
+    console.log("Colección 'alquileres' eliminada correctamente");
+  };
+
+
+  return null;
 };
 
 export default useChronoFetching;

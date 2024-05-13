@@ -1,7 +1,8 @@
-import Image from "next/image";
-import React from "react";
-import whale from "@/../public/whale.png";
-const Hero = () => {
+import React from 'react'
+import Image from 'next/image'
+import whale from '@/../public/whale.png'
+
+const Home = () => {
   return (
     <div className="flex-1 flex">
     <div className="w-1/3 p-4  flex flex-col  justify-center gap-y-4">
@@ -18,7 +19,7 @@ const Hero = () => {
       <Image src={whale} alt='whale' />
     </div>
   </div>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Home

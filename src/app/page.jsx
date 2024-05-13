@@ -4,21 +4,14 @@ import Papa from "./components/Papa";
 import useChronoFetching from "./hooks/useChronoFetching";
 import { useState, useEffect } from "react";
 import { db } from "./firebase/config";
-export default function Home() {
-  const [data, setData] = useState(null);
-useChronoFetching()
-useEffect(() => {
-   const fetch = async () => {
-     const colRef = collection(db, 'alquileres'); // Reemplaza 'nombreDeTuColeccion' con el nombre real de tu colección
-     const snapshot = await getDocs(colRef);
-     const data = snapshot.docs.map(doc => doc.data());
-     setData(data);
-     return data;
-   
-   }
+import whale from '@/../public/whale.png'
+import Image from 'next/image'
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Alquileres from "./components/Alquileres";
 
-   fetch()
- }, [])
+
+export default function Home() {
 
 
   /*   const [data, setData] = useState(null);
@@ -49,17 +42,12 @@ useEffect(() => {
     }, []);
    */
   return (
-    <>
-      {/* <Hero /> */}
-      {data && data.map((e,i) => {
-        return (
-          <div key={i}>
-            {e.title}
-          </div>
-        )
-      })}
-    </>
+    <section className="h-screen flex flex-col px-16">
+      <Navbar />
+      <Hero />
+      <Alquileres />
+    </section>
   );
+
 }
 
-/*    */
