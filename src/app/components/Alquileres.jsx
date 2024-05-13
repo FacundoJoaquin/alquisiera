@@ -24,7 +24,7 @@ const Alquileres = () => {
       }, [data])
 
   return (
-    <div className='mt-36 grid grid-cols-4 gap-32'>
+    <div className='mt-36 grid grid-cols-4 gap-20'>
       {data && data.map((e,i) => {
         return (
           <Card key={i} data={e}/>
