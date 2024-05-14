@@ -1,12 +1,12 @@
 import { collection, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { db } from "../firebase/config";
 import Card from "../ui/Card";
-import { motion, useScroll } from "framer-motion";
 
 const Alquileres = () => {
   const [data, setData] = useState(null);
-  const { scrollYProgress } = useScroll();
+  const [sortedData, setSortedData] = useState(null);
 
   useEffect(() => {
     const fetch = async () => {
@@ -21,13 +21,35 @@ const Alquileres = () => {
   }, []);
 
   useEffect(() => {
-    console.log(data);
+    const sortData = (data) => {
+      return data && data.sort((a, b) => {
+        const aPriceNum = getPriceNumber(a.price);
+        const bPriceNum = getPriceNumber(b.price);
+  
+        if (aPriceNum === null) return 1;
+        if (bPriceNum === null) return -1;
+  
+        return aPriceNum - bPriceNum;
+      });
+    };
+    const dataParser = sortData(data);
+    setSortedData(dataParser)
   }, [data]);
+
+
+
+  const getPriceNumber = (price) => {
+    if (price === false) return null;
+
+    const priceNum = parseFloat(price?.replace(/\./g, ''));
+    return isNaN(priceNum) ? null : priceNum;
+  };
+
 
   return (
     <section className="mt-20 grid grid-cols-4 gap-20 mb-10">
-      {data &&
-        data.map((e, i) => {
+      {sortedData &&
+        sortedData.map((e, i) => {
           return (
             <motion.div
               initial={{ opacity: 0 }}
@@ -39,6 +61,7 @@ const Alquileres = () => {
             </motion.div>
           );
         })}
+
     </section>
   );
 };

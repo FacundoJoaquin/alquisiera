@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Separation = () => {
+const Separation = ({title, id}) => {
     return (
-        <div className="title-with-lines mb-6" id='alquileres'>
+        <div className="title-with-lines mb-6" id={id}>
 
             <div className="title-line" />
 
-            <h3 className="text-3xl text-center px-6  font-semibold">LOS ALQUILERES DE HOY</h3>
+            <h3 className="text-3xl text-center px-6  font-semibold">{title}</h3>
             <div className="title-line" />
         </div>
     )

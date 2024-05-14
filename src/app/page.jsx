@@ -9,11 +9,13 @@ import Image from 'next/image'
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Alquileres from "./components/Alquileres";
+import AboutUs from "./components/AboutUs";
+
 import Separation from "./ui/Separation";
 
 
 export default function Home() {
-useChronoFetching()
+  useChronoFetching()
 
   /*   const [data, setData] = useState(null);
   
@@ -47,7 +49,10 @@ useChronoFetching()
       <div className="h-dvh flex flex-col">
         <Hero />
       </div>
-      <Separation />
+      <Separation title={'SOBRE NOSOTROS'} id={'aboutUs'}/>
+      <AboutUs />
+
+      <Separation title={'LOS ALQUILERES DE HOY'} id={'alquileres'}/>
       <Alquileres />
     </main>
   );

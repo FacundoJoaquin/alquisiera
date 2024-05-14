@@ -6,7 +6,6 @@ import imgNotFound from '@/../public/imgNotFound.webp'
 import { motion, useScroll } from "framer-motion"
 
 const Card = ({ data }) => {
-console.log(data);
     return (
         <div
             className='size-64 rounded-3xl border relative flex flex-col justify-between h-full py-2 shadow-md bg-lightBlue hover:scale-[1.03] transition-all duration-200 cursor-default'>
@@ -22,7 +21,7 @@ console.log(data);
                     <p className='text-sm text-gray-400'>{data.company}</p>
                    <p className='font-semibold'>{data.price ? `$${data.price}` : 'Sin precio'}</p>
                 </span>
-                <a href={data.link} className='size-8 rounded-lg text-2xl grid place-items-center border border-strongMainBlue hover:bg-mainBlue hover:text-white transition-all duration-300'><Link /></a>
+                <a href={data.link} target='__BLANK' className='size-8 rounded-lg text-2xl grid place-items-center border border-strongMainBlue hover:bg-mainBlue hover:text-white transition-all duration-300'><Link /></a>
             </div>
         </div>
     )
