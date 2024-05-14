@@ -13,7 +13,7 @@ import Separation from "./ui/Separation";
 
 
 export default function Home() {
-
+useChronoFetching()
 
   /*   const [data, setData] = useState(null);
   
@@ -45,7 +45,6 @@ export default function Home() {
   return (
     <main className="flex flex-col px-16">
       <div className="h-dvh flex flex-col">
-        <Navbar />
         <Hero />
       </div>
       <Separation />

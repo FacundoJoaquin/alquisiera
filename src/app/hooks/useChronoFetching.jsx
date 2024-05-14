@@ -16,38 +16,24 @@ const useChronoFetching = () => {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      const now = new Date();
-      const hour = now.getHours();
-
-      console.log('La hora es: ', hour)
-      await executeDataFetch(9, 10, "armando", fetchedTonightArmando, setFetchedTonightArmando);
-      await executeDataFetch(9, 10, "arnoldi", fetchedTonightArnoldi, setFetchedTonightArnoldi);
-      await executeDataFetch(9, 10, "bounos", fetchedTonightBounos, setFetchedTonightBounos);
-      await executeDataFetch(9, 10, "mallemacci", fetchedTonightMallemacci, setFetchedTonightMallemacci);
-      await executeDataFetch(9, 10, "salcovsky", fetchedTonightSalcovsky, setFetchedTonightSalcovsky);
-      await executeDataFetch(9, 10, "surwal", fetchedTonightSurwal, setFetchedTonightSurwal);
-      await executeDataFetch(9, 10, "zz", fetchedTonightZZ, setFetchedTonightZZ);
-
-
-      if (hour === 8) {
-        setFetchedTonightArmando(false)
-        setFetchedTonightArnoldi(false)
-        setFetchedTonightBounos(false)
-        setFetchedTonightMallemacci(false)
-        setFetchedTonightSalcovsky(false)
-        setFetchedTonightSurwal(false)
-        setFetchedTonightZZ(false)
-      }
-    }, 10 * 1000); // CADA 25 MINUTOS PARA QUE TENGA 2 TRY
-
+      const wakeServer = async () => {
+        try {
+          const response = await fetch('https://cron-scrapper.onrender.com/wakeUp');
+          if (!response.ok) {
+            throw new Error("Error al obtener los datos");
+          }
+          const data = await response.json();
+          console.log(data);
+        } catch (error) {
+          console.error("Error al fetchear el endpoint:", error);
+        }
+      };
+  
+      wakeServer();
+    }, 14 * 60 * 1000); // CADA 14 MINUTOS
+  
     return () => clearInterval(interval);
-  }, [fetchedTonightArmando,
-    fetchedTonightArnoldi,
-    fetchedTonightBounos,
-    fetchedTonightMallemacci,
-    fetchedTonightSalcovsky,
-    fetchedTonightSurwal,
-    fetchedTonightZZ]);
+  }, []);
 
   const fetchData = async (endpoint) => {
     try {
