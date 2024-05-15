@@ -1,58 +1,40 @@
 "use client";
-import { collection, getDocs } from "firebase/firestore";
-import Papa from "./components/Papa";
-import useChronoFetching from "./hooks/useChronoFetching";
-import { useState, useEffect } from "react";
-import { db } from "./firebase/config";
-import whale from "@/../public/whale.png";
-import Image from "next/image";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
+import AboutUs from "./components/FAQS";
 import Alquileres from "./components/Alquileres";
-import AboutUs from "./components/AboutUs";
+import Hero from "./components/Hero";
 
 import Separation from "./ui/Separation";
 
 export default function Home() {
-  useChronoFetching();
-
-  /*   const [data, setData] = useState(null);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch("https://scrapp-delta.vercel.app/armando");
-          if (!response.ok) {
-            throw new Error("Error al obtener los datos");
-          }
-          const responseData = await response.json();
-          setData(responseData);
-        } catch (error) {
-          console.error("Error al fetchear el endpoint:", error);
-        }
-      };
-  
-      fetchData();
-    }, []);
-  
-    useEffect(() => {
-      async function fetchData() {
-        const asd = await client.execute("SELECT * FROM Alquiler");
-        console.log(asd);
-      }
-      fetchData();
-    }, []);
-   */
   return (
     <main className="flex flex-col px-16 xs:px-6">
       <div className="h-dvh flex flex-col">
         <Hero />
       </div>
-      <Separation title={"SOBRE NOSOTROS"} id={"aboutUs"} />
+      <Separation title={"INFO"} id={"info"} />
       <AboutUs />
 
       <Separation title={"LOS ALQUILERES DE HOY"} id={"alquileres"} />
       <Alquileres />
+
+      <Separation title={"SOBRE NOSOTROS"} id={"aboutUs"} />
+      <div className="h-96 overflow-hidden w-full">
+        <div className="w-1/3 flex flex-col gap-y-2">
+          <h3 className="text-3xl text-strongMainBlue font-semibold">
+            ¿Quienes somos?
+          </h3>
+          <p className="text-xl">
+            Somos Facu e Indi, una pareja que intentamos mezclar nuestras
+            pasiones y terminamos acá, con la intención de ayudar a alguien a
+            encontrar su próximo hogar.
+          </p>
+          <p className="text-xl">
+            Cada detalle fue realizado con amor y esfuerzo, con la esperanza de
+            que esta plataforma sea de utilidad para todos aquellos que buscan
+            una casita donde vivir.
+          </p>
+        </div>
+      </div>
     </main>
   );
 }

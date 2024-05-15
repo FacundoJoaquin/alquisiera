@@ -47,7 +47,7 @@ const Alquileres = () => {
 
 
   return (
-    <section className=" grid grid-cols-4 gap-20 xs:grid-cols-1 xs:place-items-center xs:gap-8">
+    <section className=" grid xl:grid-cols-4 gap-20 xs:grid-cols-1 xs:place-items-center xs:gap-8 lg:grid-cols-3 sm:grid-cols-2">
       {sortedData &&
         sortedData.map((e, i) => {
           return (
