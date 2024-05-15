@@ -1,11 +1,11 @@
-'use client'
+"use client";
 import { collection, getDocs } from "firebase/firestore";
 import Papa from "./components/Papa";
 import useChronoFetching from "./hooks/useChronoFetching";
 import { useState, useEffect } from "react";
 import { db } from "./firebase/config";
-import whale from '@/../public/whale.png'
-import Image from 'next/image'
+import whale from "@/../public/whale.png";
+import Image from "next/image";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Alquileres from "./components/Alquileres";
@@ -13,9 +13,8 @@ import AboutUs from "./components/AboutUs";
 
 import Separation from "./ui/Separation";
 
-
 export default function Home() {
-  useChronoFetching()
+  useChronoFetching();
 
   /*   const [data, setData] = useState(null);
   
@@ -45,17 +44,15 @@ export default function Home() {
     }, []);
    */
   return (
-    <main className="flex flex-col px-16">
+    <main className="flex flex-col px-16 xs:px-6">
       <div className="h-dvh flex flex-col">
         <Hero />
       </div>
-      <Separation title={'SOBRE NOSOTROS'} id={'aboutUs'}/>
+      <Separation title={"SOBRE NOSOTROS"} id={"aboutUs"} />
       <AboutUs />
 
-      <Separation title={'LOS ALQUILERES DE HOY'} id={'alquileres'}/>
+      <Separation title={"LOS ALQUILERES DE HOY"} id={"alquileres"} />
       <Alquileres />
     </main>
   );
-
 }
-

@@ -12,7 +12,10 @@ module.exports = {
         mainBlue: "#B6D3FE", 
         strongMainBlue: '#93c1fd',
       },
-
+      screens: {
+        xxs: {"max": "260px"},
+        xs: {"max": "500px"},
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Separation = ({title, id}) => {
     return (
-        <div className="title-with-lines mb-6" id={id}>
+        <div className="title-with-lines my-20" id={id}>
 
             <div className="title-line" />
 

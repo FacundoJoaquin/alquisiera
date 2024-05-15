@@ -47,15 +47,16 @@ const Alquileres = () => {
 
 
   return (
-    <section className="mt-20 grid grid-cols-4 gap-20 mb-10">
+    <section className=" grid grid-cols-4 gap-20 xs:grid-cols-1 xs:place-items-center xs:gap-8">
       {sortedData &&
         sortedData.map((e, i) => {
           return (
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               key={i}
+              className="xs:w-full"
             >
               <Card data={e} />
             </motion.div>
