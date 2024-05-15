@@ -5,8 +5,8 @@ const Hero = () => {
 
 
   return (
-    <div className="flex mt-16 xs:mt-36 xs:flex-col xs:justify-around xs:h-dvh">
-      <div className="w-1/3 p-4  flex flex-col  justify-center gap-y-4 xs:w-full xs:p-2">
+    <div className="flex mt-16 xs:mt-36 xs:flex-col xs:justify-around xs:h-dvh xl:justify-center xl:h-dvh tb:mt-36 tb:flex-col tb:justify-around">
+      <div className="w-1/3 p-4 flex flex-col  justify-center gap-y-4 xs:w-full xs:p-2 tb:w-full tb:p-2">
         <h3 className="text-5xl font-semibold xs:text-4xl">
           Encontra tu{" "}
           <span className="text-mainBlue font-bold">próximo hogar</span> acá!
@@ -14,7 +14,7 @@ const Hero = () => {
         <p className="text-gray-400 xs:text-lg text-xl">
           Alquileando es una contribución a la comunidad de Puerto Madryn.{" "}
           <br /> En estos tiempos difíciles, encontrar nuestro próximo hogar es
-          realmente desafiante. <br /> Espero que ahora sea un poco más fácil.
+          realmente desafiante. <br /> Esperamos que ahora sea un poco más fácil.
         </p>
         <button
           onClick={() => {
@@ -29,7 +29,7 @@ const Hero = () => {
         </button>
       </div>
 
-      <div className="w-2/3 p-16 flex justify-center items-center xs:w-full xs:p-2">
+      <div className="w-2/3 p-16 flex justify-center items-center xs:w-full xs:p-2 tb:w-full tb:p-2">
         <Image src={whale} alt="whale" />
       </div>
     </div>

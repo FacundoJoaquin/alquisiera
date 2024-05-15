@@ -3,22 +3,22 @@ import Image from "next/image";
 
 export default function page() {
   return (
-    <section className=" w-full h-[60rem] overflow-hidden xs:h-max">
+    <section className=" w-full h-max overflow-hidden xs:h-max">
       <h3 className="text-3xl text-center font-semibold xs:text-xl xs:text-start">
         ¿Te está costando encontrar tu próximo hogar? <br /> Tranqui,{" "}
         <span className="text-strongMainBlue font-semibold">
-          estoy para eso
+          estamos para eso
         </span>
         .
       </h3>
       <div className="w-full grid place-items-center">
-        <p className="w-[80%] text-lg mt-4 text-center text-gray-500 xs:text-start xs:w-full xs:pr-2">
+        <p className="w-[80%] text-lg mt-4 text-center text-gray-500 xs:text-start xs:w-full xs:pr-2 tb:text-start tb:w-full tb:pr-2">
           Imagínate después de un día largo, llegas a tu casa y suspiras:
           &quot;Ahh, por fin en casita...&quot;. Esa sensación de alivio y
           pertenencia es lo que todos buscamos.{" "}
         </p>
-        <p className="w-[80%] text-lg mt-4 text-center text-gray-500 xs:text-start xs:w-full xs:pr-2">
-          Mi objetivo es ayudarte a encontrar ese lugar especial que puedas
+        <p className="w-[80%] text-lg mt-4 text-center text-gray-500 xs:text-start xs:w-full xs:pr-2 tb:text-start tb:w-full tb:pr-2">
+          Nuestro objetivo es ayudarte a encontrar ese lugar especial que puedas
           llamar hogar, donde puedas relajarte, recargar energías y simplemente
           ser vos mismo. Ya sea un acogedor monoambiente o una espaciosa casa
           familiar, estamos para acompañarte en esta emocionante búsqueda hacia
@@ -26,14 +26,14 @@ export default function page() {
         </p>
       </div>
 
-      <div className="w-full h-auto flex px-14 mt-10 xs:px-2 xs:flex-col gap-x-10 xs:gap-y-6">
+      <div className="w-full h-auto flex px-14 mt-10 xs:px-2 xs:flex-col gap-x-10 xs:gap-y-6 tb:px-2 tb:flex-col tb:gap-y-6">
         <div className="flex-1 relative flex justify-center">
           <Image
             src={ImgAbout}
             alt="Busca alquileres baratos en Puerto Madryn en Alquileando"
           />
         </div>
-        <div className="w-1/3 flex  flex-col gap-y-5 text-start text-gray-500  h-max xs:w-full ">
+        <div className="w-1/3 flex  flex-col gap-y-5 text-start text-gray-500  h-max xs:w-full tb:w-full">
           <h3 className="text-3xl text-strongMainBlue font-semibold ">
             Pero entonces... <br /> ¿Qué hacemos?
           </h3>
