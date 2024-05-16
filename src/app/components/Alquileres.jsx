@@ -1,14 +1,30 @@
 import { collection, getDocs } from "firebase/firestore";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { db } from "../firebase/config";
 import Card from "../ui/Card";
+import { db } from "../utils/firebase/config";
+import { sortByAmount, sortDataByButtons } from "../utils/functions/sortData";
 import Loader from "./icons/Loader";
+
+export const maxCanPay = [
+  { id: 1, name: '200.000', value: 200000 },
+  { id: 2, name: '300.000', value: 300000 },
+  { id: 3, name: '400.000', value: 400000 },
+  { id: 4, name: '500.000', value: 500000 },
+  { id: 5, name: '600.000', value: 600000 },
+  { id: 6, name: '+700.000', value: Infinity },
+
+
+]
+
+// Cambiar data setData por dataFetching setDataFetching
+// Cambiar sorder setsortedData por data
 
 const Alquileres = () => {
   const [data, setData] = useState(undefined);
   const [sortedData, setSortedData] = useState(undefined);
   const [maxPrice, setMaxPrice] = useState(undefined);
+  const [dataLength, setDataLength] = useState(0);
 
   useEffect(() => {
     const fetch = async () => {
@@ -16,6 +32,7 @@ const Alquileres = () => {
       const snapshot = await getDocs(colRef);
       const data = snapshot.docs.map((doc) => doc.data());
       setData(data);
+      setDataLength(data.length)
       return data;
     };
 
@@ -23,64 +40,19 @@ const Alquileres = () => {
   }, []);
 
   useEffect(() => {
-    const initialSort = (data) => {
-      return data && data.sort((a, b) => {
-        const aPriceNum = getPriceNumber(a.price);
-        const bPriceNum = getPriceNumber(b.price);
-
-        if (aPriceNum === null) return 1;
-        if (bPriceNum === null) return -1;
-
-        return aPriceNum - bPriceNum;
-      });
-    };
-    const dataParser = initialSort(data);
+    const dataParser = sortByAmount(data);
     setSortedData(dataParser)
   }, [data]);
 
-  const getPriceNumber = (price) => {
-    if (price === false) return null;
-
-    const priceNum = parseFloat(price?.replace(/\./g, ''));
-    return isNaN(priceNum) ? null : priceNum;
-  };
 
   const handleMaxPriceChange = (value) => {
     setMaxPrice(value);
   };
 
-  const sortData = (data) => {
-    const numMaxPrice = maxPrice ? parseFloat(maxPrice) : Infinity;
-
-    return data &&
-      data
-        .filter((item) => {
-          const itemPrice = getPriceNumber(item.price);
-          return itemPrice !== null && itemPrice <= numMaxPrice;
-        })
-        .sort((a, b) => {
-          const aPriceNum = getPriceNumber(a.price);
-          const bPriceNum = getPriceNumber(b.price);
-          if (aPriceNum === null) return 1;
-          if (bPriceNum === null) return -1;
-          return aPriceNum - bPriceNum;
-        });
-  };
   useEffect(() => {
-    const dataParser = sortData(data);
+    const dataParser = sortDataByButtons(data, maxPrice);
     setSortedData(dataParser);
   }, [data, maxPrice]);
-
-  const maxCanPay = [
-    { id: 1, name: '200.000', value: 200000 },
-    { id: 2, name: '300.000', value: 300000 },
-    { id: 3, name: '400.000', value: 400000 },
-    { id: 4, name: '500.000', value: 500000 },
-    { id: 5, name: '600.000', value: 600000 },
-    { id: 6, name: '+700.000', value: Infinity },
-
-
-  ]
 
   const isButtonSelected = (value) => {
     return maxPrice === value;
@@ -88,7 +60,7 @@ const Alquileres = () => {
 
   return (
     <section className="flex flex-col w-full gap-y-4">
-      {sortedData && sortedData?.length > 0 && <p className="text-center text-2xl text-strongMainBlue font-bold xs:text-base">Al día de hoy contamos con {sortedData.length} alquileres.</p>}
+      {sortedData && sortedData?.length > 0 && <p className="text-center text-2xl text-strongMainBlue font-bold xs:text-base">Al día de hoy contamos con {dataLength} alquileres.</p>}
       <div className="flex w-full flex-col gap-y-4 items-center mb-4">
         <label htmlFor="maxPrice" className="text-2xl font-semibold text-strongMainBlue">PUEDO PAGAR HASTA</label>
         <div className="flex gap-x-4 xs:grid xs:grid-cols-3 xs:gap-3 xs:gap-x-6">
@@ -129,3 +101,187 @@ const Alquileres = () => {
 };
 
 export default Alquileres;
+
+
+
+/* 
+
+import { collection, getDocs } from "firebase/firestore";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { db } from "../firebase/config";
+import Card from "../ui/Card";
+import Loader from "./icons/Loader";
+
+const Alquileres = () => {
+  const [data, setData] = useState(undefined);
+  const [sortedData, setSortedData] = useState(undefined);
+  const [maxPrice, setMaxPrice] = useState(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 8;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = sortedData?.slice(indexOfFirstItem, indexOfLastItem);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const colRef = collection(db, "alquileres");
+      const snapshot = await getDocs(colRef);
+      const data = snapshot.docs.map((doc) => doc.data());
+      setData(data);
+      return data;
+    };
+
+    fetch();
+  }, []);
+
+  useEffect(() => {
+    const initialSort = (data) => {
+      return (
+        data &&
+        data.sort((a, b) => {
+          const aPriceNum = getPriceNumber(a.price);
+          const bPriceNum = getPriceNumber(b.price);
+
+          if (aPriceNum === null) return 1;
+          if (bPriceNum === null) return -1;
+
+          return aPriceNum - bPriceNum;
+        })
+      );
+    };
+    const dataParser = initialSort(data);
+    setSortedData(dataParser);
+  }, [data]);
+
+  const getPriceNumber = (price) => {
+    if (price === false) return null;
+
+    const priceNum = parseFloat(price?.replace(/\./g, ""));
+    return isNaN(priceNum) ? null : priceNum;
+  };
+
+  const handleMaxPriceChange = (value) => {
+    setMaxPrice(value);
+  };
+
+  const sortData = (data) => {
+    const numMaxPrice = maxPrice ? parseFloat(maxPrice) : Infinity;
+
+    return (
+      data &&
+      data
+        .filter((item) => {
+          const itemPrice = getPriceNumber(item.price);
+          return itemPrice !== null && itemPrice <= numMaxPrice;
+        })
+        .sort((a, b) => {
+          const aPriceNum = getPriceNumber(a.price);
+          const bPriceNum = getPriceNumber(b.price);
+          if (aPriceNum === null) return 1; 
+          if (bPriceNum === null) return -1; 
+          return aPriceNum - bPriceNum;
+        })
+        .concat(
+          data.filter((item) => {
+            const itemPrice = getPriceNumber(item.price);
+            return itemPrice === null;
+          })
+        )
+    );
+  };
+
+  useEffect(() => {
+    const dataParser = sortData(data);
+    setSortedData(dataParser);
+  }, [data, maxPrice]);
+
+  const maxCanPay = [
+    { id: 1, name: "200.000", value: 200000 },
+    { id: 2, name: "300.000", value: 300000 },
+    { id: 3, name: "400.000", value: 400000 },
+    { id: 4, name: "500.000", value: 500000 },
+    { id: 5, name: "600.000", value: 600000 },
+    { id: 6, name: "+700.000", value: Infinity },
+  ];
+
+  const isButtonSelected = (value) => {
+    return maxPrice === value;
+  };
+
+  return (
+    <section className="flex flex-col w-full gap-y-4">
+      {sortedData && sortedData?.length > 0 && (
+        <p className="text-center text-2xl text-strongMainBlue font-bold xs:text-base">
+          Al día de hoy contamos con {sortedData.length} alquileres.
+        </p>
+      )}
+      <div className="flex w-full flex-col gap-y-4 items-center mb-4">
+        <label
+          htmlFor="maxPrice"
+          className="text-2xl font-semibold text-strongMainBlue"
+        >
+          PUEDO PAGAR HASTA
+        </label>
+        <div className="flex gap-x-4 xs:grid xs:grid-cols-3 xs:gap-3 xs:gap-x-6">
+          {maxCanPay.map((e) => {
+            return (
+              <button
+                key={e.id}
+                className={`bg-mainBlue rounded-full w-24 py-1 border text-white hover:bg-strongMainBlue transition-colors duration-300 xs:w-16 xs:text-xs xs:text-center ${
+                  isButtonSelected(e.value) ? "bg-strongMainBlue" : ""
+                }`}
+                onClick={() => handleMaxPriceChange(e.value)}
+              >
+                {e.name}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="grid xl:grid-cols-4 gap-20 xs:grid-cols-1 xs:place-items-center xs:gap-8 lg:grid-cols-3 sm:grid-cols-2 2xl:grid-cols-5 tb:grid-cols-2 tb:place-items-center tb:gap-8">
+        {currentItems ? (
+          currentItems.map((e, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="w-full"
+            >
+              <Card data={e} />
+            </motion.div>
+          ))
+        ) : (
+          <div className="p-1 w-full grid place-items-center">
+            <Loader style={"size-10 animate-spin text-mainBlue"} />
+            <p>Cargando alquileres...</p>
+          </div>
+        )}
+      </div>
+      <div className="flex justify-center mt-4">
+        <button
+          className="px-4 py-2 bg-mainBlue text-white rounded-l"
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Anterior
+        </button>
+        <span className="px-4 py-2 bg-gray-200">{currentPage}</span>
+        <button
+          className="px-4 py-2 bg-mainBlue text-white rounded-r"
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={indexOfLastItem >= sortedData?.length}
+        >
+          Siguiente
+        </button>
+      </div>
+    </section>
+  );
+};
+
+export default Alquileres;
+
+*/

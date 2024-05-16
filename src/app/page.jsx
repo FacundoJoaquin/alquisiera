@@ -8,7 +8,7 @@ import Separation from "./ui/Separation";
 export default function Home() {
   return (
     <main className="flex flex-col px-16 xs:px-6">
-      <div className="h-dvh flex flex-col tb:h-max">
+      <div className="flex flex-col ">
         <Hero />
       </div>
       <Separation title={"INFO"} id={"info"} />
