@@ -24,6 +24,11 @@ const Paginator = ({ items, itemsPerPage, currentPage, setCurrentItems, onPageCh
       if (currentPage > 1) {
         const newPage = currentPage - 1;
         onPageChange(newPage);
+          const alquileresSection = document.getElementById('alquileres');
+          if (alquileresSection) {
+            alquileresSection.scrollIntoView({ behavior: 'smooth' });
+          }
+
       }
     };
   
@@ -32,6 +37,11 @@ const Paginator = ({ items, itemsPerPage, currentPage, setCurrentItems, onPageCh
       if (currentPage < totalPages) {
         const newPage = currentPage + 1;
         onPageChange(newPage);
+        const alquileresSection = document.getElementById('alquileres');
+        if (alquileresSection) {
+          alquileresSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
       }
     };
   
