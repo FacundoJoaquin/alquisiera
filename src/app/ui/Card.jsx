@@ -13,7 +13,7 @@ const Card = ({ data }) => {
   }
 
   return (
-    <div className="h-[27rem] w-full border border-gray-300 shadow-md shadow-lightBlue bg-lightBlue rounded-3xl p-4 flex flex-col gap-y-2 hover:scale-[1.03] transition-all duration-200 cursor-default xs:w-full xs:h-max">
+    <div className="h-[28rem] w-full border border-gray-300 shadow-md shadow-lightBlue bg-lightBlue rounded-3xl p-4 flex flex-col gap-y-2 hover:scale-[1.03] transition-all duration-200 cursor-default xs:w-full xs:h-max">
       <div className="w-full flex justify-center">
         <div className="size-40 rounded-full  overflow-hidden border border-white outline-1">
           <Image
@@ -33,7 +33,7 @@ const Card = ({ data }) => {
         <span className="">
           <p className="text-sm text-gray-400">{data.company}</p>
           <p className="font-semibold">
-            {data.price ? `$${data.price.replace(/\./g, "")}` : "Sin precio"}
+            {data.price != 'Sin precio' ? `$${data.price.replace(/\./g, "")}` : "Sin precio"}
           </p>
         </span>
         <a
