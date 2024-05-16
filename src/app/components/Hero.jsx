@@ -12,7 +12,7 @@ const Hero = () => {
           <span className="text-mainBlue font-bold">próximo hogar</span> acá!
         </h3>
         <p className="text-gray-400 xs:text-lg text-xl">
-          Alquileando es una contribución a la comunidad de Puerto Madryn.{" "}
+          Alquisiera es una contribución a la comunidad de Puerto Madryn.{" "}
           <br /> En estos tiempos difíciles, encontrar nuestro próximo hogar es
           realmente desafiante. <br /> Esperamos que ahora sea un poco más fácil.
         </p>

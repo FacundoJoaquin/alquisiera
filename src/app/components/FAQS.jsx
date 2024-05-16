@@ -30,7 +30,7 @@ export default function page() {
         <div className="flex-1 relative flex justify-center">
           <Image
             src={ImgAbout}
-            alt="Busca alquileres baratos en Puerto Madryn en Alquileando"
+            alt="Busca alquileres baratos en Puerto Madryn en Alquisiera"
           />
         </div>
         <div className="w-1/3 flex  flex-col gap-y-5 text-start text-gray-500  h-max xs:w-full tb:w-full">
