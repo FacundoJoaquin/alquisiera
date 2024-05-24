@@ -18,23 +18,30 @@ export function parseToNumber(price) {
   return isNaN(priceNum) ? 'Sin precio' : priceNum;
 }
 
-export function sortDataByButtons(data, maxPrice) {
-  const numMaxPrice = maxPrice ? parseFloat(maxPrice) : Infinity;
+export function sortDataByButtons(data, minPrice) {
+  const numMinPrice = minPrice ? parseFloat(minPrice) : 0;
   
+  // Creamos una copia del array original para no modificar los datos originales
+  const newData = data?.map(item => ({ ...item }));
+
   return (
-    data &&
-    data
+    newData &&
+    newData
       .map((item) => {
         const itemPrice = parseToNumber(item.price);
-        if (itemPrice === 'Sin precio' || itemPrice === null || itemPrice > numMaxPrice) {
+        if (itemPrice === false || itemPrice === null || itemPrice == 'Sin precio') {
           item.price = 'Sin precio';
         }
         return item;
       })
+      .filter((item) => {
+        const itemPrice = parseToNumber(item.price);
+        return itemPrice !== false && itemPrice !== null && itemPrice >= numMinPrice;
+      })
       .sort((a, b) => {
         const aPriceNum = parseToNumber(a.price);
         const bPriceNum = parseToNumber(b.price);
-        
+
         if (aPriceNum === 'Sin precio') return 1;
         if (bPriceNum === 'Sin precio') return -1;
         return aPriceNum - bPriceNum;

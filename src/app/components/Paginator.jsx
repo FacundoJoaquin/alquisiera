@@ -8,17 +8,14 @@ const Paginator = ({ items, itemsPerPage, currentPage, setCurrentItems, onPageCh
     useEffect(() => {
       const totalPages = Math.ceil(items.length / itemsPerPage);
       setTotalPages(totalPages);
-  
-      let currentItems = paginate(items, currentPage, itemsPerPage);
-  
-      const emptySlots = colsPerRow * Math.ceil(currentItems.length / colsPerRow) - currentItems.length;
-      for (let i = 0; i < emptySlots; i++) {
-        currentItems.push({ empty: true });
-      }
-  
+    
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, items.length);
+      let currentItems = items.slice(startIndex, endIndex);
+    
       setCurrentItems(currentItems);
     }, [items, currentPage, itemsPerPage]);
-  
+    
     const handlePrevPage = (e) => {
       e.preventDefault();
       if (currentPage > 1) {
