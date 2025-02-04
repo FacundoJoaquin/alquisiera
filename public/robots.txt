@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://alquisiera.vercel.app
+
+# Sitemaps
+Sitemap: https://alquisiera.vercel.app/sitemap.xml
+Sitemap: https://alquisiera.vercel.app/server-sitemap.xml
